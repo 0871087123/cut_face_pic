@@ -1,0 +1,7 @@
+project( ShowImg )
+set(CMAKE_BUILD_TYPE Debug)
+set(OpenCV_DIR /home/kent/Skylab/opencv-2.4.13)
+find_package( OpenCV REQUIRED)
+set(SRC main.cpp config.h cut_face_process.cpp cut_face_process.h)
+add_executable( cut_face ${SRC})
+target_link_libraries( cut_face ${OpenCV_LIBS} )

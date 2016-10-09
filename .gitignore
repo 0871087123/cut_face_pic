@@ -1,0 +1,9 @@
+.idea/
+core
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake.sh
+cmake_install.cmake
+*.jpg
+*.swp
