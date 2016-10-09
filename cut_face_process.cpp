@@ -35,7 +35,7 @@ IplImage* cut_face_process::process_file(std::string filename) {
     Mat frame(img, false);
     vector<int> params;
     params.push_back(CV_IMWRITE_JPEG_QUALITY);
-    params.push_back(50);
+    params.push_back(40);
 
     std::vector<Rect> faces;
     Mat frame_gray;
