@@ -71,7 +71,7 @@ IplImage* cut_face_process::process_file(std::string filename) {
         Mat outface;
         resize(face, outface, Size(JPG_IMG_WIDTH, JPG_IMG_HEIGHT));
         sprintf(idbuf, "%d", i);
-        string outfilename = outfile + idbuf + "_" + filename;
+        string outfilename = outfile + idbuf + "_" + filename + ".jpg";
         imwrite(outfilename, outface, params);
         string cmd = "mv ";
         system((cmd + outfilename + " out/").c_str());
