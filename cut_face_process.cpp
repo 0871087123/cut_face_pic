@@ -36,6 +36,7 @@ IplImage* cut_face_process::process_file(std::string filename) {
     vector<int> params;
     params.push_back(CV_IMWRITE_JPEG_QUALITY);
     params.push_back(40);
+    bool has_face = false;
 
     std::vector<Rect> faces;
     Mat frame_gray;
@@ -47,6 +48,7 @@ IplImage* cut_face_process::process_file(std::string filename) {
 
     for (size_t i = 0; i < faces.size(); i++)
     {
+        has_face = true;
         Point center(faces[i].x + faces[i].width*0.5, faces[i].y + faces[i].height*0.5);
 //        ellipse(frame, center, Size( faces[i].width*0.5, faces[i].height*0.5), 0, 0, 360, Scalar( 255, 0, 255 ), 4, 8, 0);
         Mat faceROI = frame_gray( faces[i] );
@@ -84,6 +86,9 @@ IplImage* cut_face_process::process_file(std::string filename) {
 //        }
     }
 
+    if (!has_face) {
+        cut_face_process::failed_files.push_back(filename);
+    }
 
     return NULL;
 }
