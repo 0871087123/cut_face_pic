@@ -21,6 +21,8 @@ RNG rng(12345);
 
 vector<string> cut_face_process::failed_files;
 
+float cut_face_process::param_x = 1.0f;
+
 int cut_face_process::init() {
     if (!face_cascade.load(face_cascade_name)) {printf("Error Load\n"); return -1;}
     if (!eyes_cascade.load(eyes_cascade_name)) {printf("Error Load\n"); return -1;}
@@ -55,7 +57,7 @@ IplImage* cut_face_process::process_file(std::string filename) {
         std::vector<Rect> eyes;
 
         Rect face_area = faces[i];
-        face_area.width *= 1.4f; // large face detected
+        face_area.width *= 1.2f; // large face detected
         face_area.height = face_area.width / JPG_IMG_SCALE_VERTICAL * JPG_IMG_SCALE_HORIZEN;
         face_area.x = center.x - (face_area.width / 2);
         face_area.y = center.y - (face_area.height / 2);

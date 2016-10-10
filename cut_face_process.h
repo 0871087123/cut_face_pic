@@ -19,6 +19,7 @@ using namespace std;
 class cut_face_process {
 public:
     static vector<string> failed_files;
+    static float param_x;
     static int init();
     static IplImage * process_file(std::string filename);
 };
