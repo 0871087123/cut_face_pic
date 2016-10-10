@@ -55,7 +55,7 @@ IplImage* cut_face_process::process_file(std::string filename) {
         std::vector<Rect> eyes;
 
         Rect face_area = faces[i];
-        face_area.width *= 1.5f; // large face detected
+        face_area.width *= 1.4f; // large face detected
         face_area.height = face_area.width / JPG_IMG_SCALE_VERTICAL * JPG_IMG_SCALE_HORIZEN;
         face_area.x = center.x - (face_area.width / 2);
         face_area.y = center.y - (face_area.height / 2);
@@ -75,6 +75,12 @@ IplImage* cut_face_process::process_file(std::string filename) {
         imwrite(outfilename, outface, params);
         string cmd = "mv ";
         system((cmd + "\"" + outfilename + "\"" + " out/").c_str());
+
+#ifdef REMOVE_SOURCE
+        cmd = "rm -rf ";
+        system((cmd + "\"" + filename + "\"" ).c_str());
+#endif
+
 
 //        //-- In each face, detect eyes
 //        eyes_cascade.detectMultiScale( faceROI, eyes, 1.1, 2, 0 |CV_HAAR_SCALE_IMAGE, Size(30, 30) );
