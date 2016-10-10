@@ -74,7 +74,7 @@ IplImage* cut_face_process::process_file(std::string filename) {
         string outfilename = outfile + idbuf + "_" + filename + ".jpg";
         imwrite(outfilename, outface, params);
         string cmd = "mv ";
-        system((cmd + outfilename + " out/").c_str());
+        system((cmd + "\"" + outfilename + "\"" + " out/").c_str());
 
 //        //-- In each face, detect eyes
 //        eyes_cascade.detectMultiScale( faceROI, eyes, 1.1, 2, 0 |CV_HAAR_SCALE_IMAGE, Size(30, 30) );
