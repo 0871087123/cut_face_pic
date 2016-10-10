@@ -57,15 +57,30 @@ IplImage* cut_face_process::process_file(std::string filename) {
         std::vector<Rect> eyes;
 
         Rect face_area = faces[i];
-        face_area.width *= 1.2f; // large face detected
+        face_area.width *= cut_face_process::param_x; // large face detected
+        if (face_area.width > frame.cols)
+            face_area.width = frame.cols;
         face_area.height = face_area.width / JPG_IMG_SCALE_VERTICAL * JPG_IMG_SCALE_HORIZEN;
+        if (face_area.height > frame.rows) {
+            face_area.height = frame.rows;
+            face_area.width = face_area.height / JPG_IMG_SCALE_HORIZEN * JPG_IMG_SCALE_VERTICAL;
+        }
         face_area.x = center.x - (face_area.width / 2);
         face_area.y = center.y - (face_area.height / 2);
+        if (face_area.x < 0)
+            face_area.x = 0;
+        if (face_area.y < 0)
+            face_area.y = 0;
+        if ((face_area.x + face_area.width) > frame.cols)
+            face_area.x = 0;
+        if ((face_area.y + face_area.height) > frame.rows)
+            face_area.y = 0;
         if (((face_area.x + face_area.width) > frame.cols) ||
             (face_area.x < 0) ||
             (face_area.y < 0) ||
             (face_area.y + face_area.height) > frame.rows)
         {
+            cout << "has error with" + filename << endl;
             cut_face_process::failed_files.push_back(filename);
             return NULL;
         }
@@ -73,7 +88,7 @@ IplImage* cut_face_process::process_file(std::string filename) {
         Mat outface;
         resize(face, outface, Size(JPG_IMG_WIDTH, JPG_IMG_HEIGHT));
         sprintf(idbuf, "%d", i);
-        string outfilename = outfile + idbuf + "_" + filename + ".jpg";
+        string outfilename = outfile + "_" + filename + "_" + idbuf + ".jpg";
         imwrite(outfilename, outface, params);
         string cmd = "mv ";
         system((cmd + "\"" + outfilename + "\"" + " out/").c_str());
