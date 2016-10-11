@@ -13,19 +13,19 @@ using namespace cv;
 
 int main(int argc, const char **argv)
 {
-//    if (argc < 2) {
-//        cout << "Usage : ./cut_face param(float) files " << endl;
-//        return 0;
-//    }
-//    cut_face_process::param_x = atof(argv[1]);
-//    if (cut_face_process::param_x <= 1.0f) {
-//        cout << "param_x should larger than 1.0f" << endl;
-//        return 0;
-//    }
+    cut_face_process::param_x = 1.6f;
+    if (argc < 2) {
+        cout << "Usage : ./cut_face param(float) files " << endl;
+        return 0;
+    }
+    cut_face_process::param_x = atof(argv[1]);
+    if (cut_face_process::param_x <= 1.0f) {
+        cout << "param_x should larger than 1.0f" << endl;
+        return 0;
+    }
 
-    cut_face_process::param_x = 1.7f;
     Vector<String> files;
-    for (int i = 1; i < argc; i++) {
+    for (int i = 2; i < argc; i++) {
         files.push_back(String(argv[i]));
     }
 

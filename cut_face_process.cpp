@@ -93,7 +93,7 @@ IplImage* cut_face_process::process_file(std::string filename) {
         string cmd = "mv ";
         system((cmd + "\"" + outfilename + "\"" + " out/").c_str());
 
-#ifdef REMOVE_SOURCE
+#if REMOVE_SOURCE
         cmd = "rm -rf ";
         system((cmd + "\"" + filename + "\"" ).c_str());
 #endif
